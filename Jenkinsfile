@@ -7,21 +7,14 @@ pipeline {
                 git 'https://github.com/clusson1/Springboot.git'
             }
         }
-        stage ('build') {
+        stage ('Build and Package') {
             steps {
-                sh 'mvn clean:clean'
-                sh 'mvn dependency:copy-dependencies'
-                sh 'mvn compiler:compile'
+                sh 'mvn clean package'
             }
         }
         stage ('Exec') {
             steps {
-                sh 'mvn exec:java'
-            }
-        }
-        stage ('Package') {
-            steps {
-                sh 'mvn package'
+                sh 'java -jar target/ct5171_springBoot*.jar'
             }
         }
     }
